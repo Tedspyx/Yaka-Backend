@@ -6,36 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.ue.cerveza.model.Role;
-import co.edu.ue.cerveza.repository.RoleJPA;
+import co.edu.ue.cerveza.repository.IRoleRepository;
 
 @Service
 public class RoleService {
 
 	@Autowired
-	RoleJPA jpa;
+	IRoleRepository repository;
 	
 	public Role addRol(Role role) {
-		return jpa.save(role);
+		return repository.addRole(role);
 	}
 	
 	public List<Role> allRoles(){
-		return jpa.findAll();					
+		return repository.listRole();					
 	}
 	
 	public Role findRoleById(int id) {
-		return jpa.findById(id).orElse(null);
+		return repository.searchRoleId(id);
 	}
 	
 	public Role updateRole(Role role) {
-		return jpa.save(role);
+		return repository.upRole(role);
 	}
 	
 	public Role deleteRole(int id) {
-		Role rol = jpa.findById(id).orElse(null);
+		Role rol = repository.searchRoleId(id);
 		if(rol != null) {
-			jpa.deleteById(id);
+			repository.deleteRole(id);
 		}
-		jpa.deleteById(id);
+		repository.deleteRole(id);
 		return null;
 	}
 }
